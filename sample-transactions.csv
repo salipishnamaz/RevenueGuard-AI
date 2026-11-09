@@ -1,0 +1,14 @@
+
+transaction_id,date,customer,category,amount,currency,status
+TXN-1001,2026-11-01,Customer A,Sales,12500,USD,completed
+TXN-1002,2026-11-01,Customer B,Sales,8900,USD,completed
+TXN-1003,2026-11-02,Customer C,Refund,450,USD,completed
+TXN-1004,2026-11-02,Customer D,Sales,14200,USD,completed
+TXN-1005,2026-11-03,Customer E,Sales,9800,USD,completed
+TXN-1006,2026-11-03,Customer F,Refund,7200,USD,completed
+TXN-1007,2026-11-04,Customer G,Sales,15600,USD,completed
+TXN-1008,2026-11-04,Customer H,Sales,11800,USD,pending
+TXN-1009,2026-11-05,Customer I,Refund,9500,USD,completed
+TXN-1010,2026-11-05,Customer J,Sales,13200,USD,completed
+TXN-1011,2026-11-06,Customer K,Sales,11000,USD,completed
+TXN-1012,2026-11-06,Customer L,Refund,300,USD,completed
