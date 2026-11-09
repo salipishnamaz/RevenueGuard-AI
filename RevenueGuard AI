@@ -1,0 +1,38 @@
+
+# RevenueGuard AI
+
+Revenue Intelligence and Revenue Leakage Detection.
+
+## Version
+0.1 - Prototype
+
+## Features
+- Executive dashboard
+- Transaction monitoring
+- CSV upload
+- Rule-based anomaly detection
+- Revenue risk indicators
+- Responsive interface
+
+## Technology
+- HTML
+- CSS
+- JavaScript
+- Netlify
+
+## Deployment
+Publish directory: .
+
+Build command: None
+
+## Current Limitations
+This prototype uses browser-based rules.
+It is not connected to a live ERP or accounting system.
+All alerts require human validation.
+
+## Roadmap
+1. Validate business rules.
+2. Connect authorized financial data.
+3. Build secure backend.
+4. Add AI-based anomaly detection.
+5. Run a customer pilot.
