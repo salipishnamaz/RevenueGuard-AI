@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RevenueGuard AI</title>
+<style>
+:root {
+  --bg:#0b1220;
+  --panel:#142239;
+  --line:#263c58;
+  --text:#edf4ff;
+  --muted:#9aacc4;
+  --cyan:#42d6c5;
+  --red:#ff7e86;
+  --yellow:#ffc56d;
+  --green:#60d6a5;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Arial,sans-serif;
+}
+main{max-width:1150px;margin:auto;padding:25px 18px}
+header{
+  display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:15px;
+  margin-bottom:35px;
+}
+.logo{font-size:24px;font-weight:bold;color:var(--cyan)}
+.status{color:var(--green);font-size:12px}
+h1{font-size:34px;margin:10px 0}
+p{color:var(--muted)}
+.metrics{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:15px;margin:25px 0;
+}
+.card{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:13px;padding:20px;
+}
+.card small{color:var(--muted)}
+.value{font-size:27px;font-weight:bold;margin-top:12px}
+.green{color:var(--green)}
+.red{color:var(--red)}
+.yellow{color:var(--yellow)}
+.columns{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:15px;margin-bottom:20px;
+}
+h2{font-size:18px}
+button,.upload{
+  background:var(--cyan);color:#071923;
+  border:0;border-radius:8px;padding:11px 17px;
+  font-weight:bold;cursor:pointer;display:inline-block;
+}
+input{margin:15px 0;color:var(--text)}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+th,td{
+  text-align:left;padding:13px 8px;
+  border-bottom:1px solid var(--line);font-size:13px;
+}
+th{color:var(--muted)}
+.table-wrap{overflow-x:auto}
+.note{
+  padding:14px;border:1px solid #65512c;
+  background:#292316;color:#f2d394;
+  border-radius:10px;font-size:12px;margin-top:20px;
+}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:35px}
+@media(max-width:750px){
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .columns{grid-template-columns:1fr}
+  h1{font-size:27px}
+}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div>
+    <div class="logo">◈ RevenueGuard AI</div>
+    <p>Intelligent Revenue Protection Platform</p>
+  </div>
+  <div class="status">● DEMO VERSION 0.1</div>
+</header>
+
+<section>
+  <h1>Revenue Intelligence</h1>
+  <p>Detect revenue leakage. Monitor transactions. Protect profitability.</p>
+</section>
+
+<section class="metrics">
+  <div class="card">
+    <small>Transactions Analyzed</small>
+    <div class="value" id="total">1,248</div>
+  </div>
+  <div class="card">
+    <small>Potential Revenue at Risk</small>
+    <div class="value red" id="risk">$18,460</div>
+  </div>
+  <div class="card">
+    <small>Detected Anomalies</small>
+    <div class="value yellow" id="anomalies">23</div>
+  </div>
+  <div class="card">
+    <small>High Priority Cases</small>
+    <div class="value red" id="high">6</div>
+  </div>
+</section>
+
+<section class="columns">
+  <div class="card">
+    <h2>Revenue Risk Categories</h2>
+    <p>Illustrative risk distribution</p>
+    <p>Discounts <b>$7,800</b></p>
+    <p>Refunds <b>$5,200</b></p>
+    <p>Duplicate invoices <b>$3,100</b></p>
+    <p>Price mismatch <b>$2,400</b></p>
+  </div>
+
+  <div class="card">
+    <h2>Risk Detection</h2>
+    <p class="red">● High: Unusual discounts</p>
+    <p class="red">● High: Duplicate transactions</p>
+    <p class="yellow">● Medium: Abnormal refunds</p>
+    <p class="yellow">● Medium: Price differences</p>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Transaction Analysis</h2>
+  <p>Upload a CSV file to analyze transactions.</p>
+
+  <input type="file" id="csv" accept=".csv">
+  <button onclick="analyze()">Analyze CSV</button>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Risk</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody id="results">
+        <tr>
+          <td>TX-1001</td>
+          <td>Discount</td>
+          <td>$4,800</td>
+          <td class="red">HIGH</td>
+          <td>Discount above 35%</td>
+        </tr>
+        <tr>
+          <td>TX-1002</td>
+          <td>Refund</td>
+          <td>$1,250</td>
+          <td class="yellow">MEDIUM</td>
+          <td>Large refund review</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    This is an experimental rule-based prototype.
+    Alerts require human validation. No real ERP or
+    accounting connection is currently configured.
+  </div>
+</section>
+
+<footer>
+  RevenueGuard AI | Prototype v0.1 | 2026
+  <br>Designed for enterprise revenue protection
+</footer>
+
+</main>
+
+<script>
+function analyze(){
+  const file=document.getElementById("csv").files[0];
+  if(!file){alert("Please select a CSV file.");return;}
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+    const lines=e.target.result.trim().split(/\r?\n/);
+    const headers=lines.shift().split(",").map(x=>x.trim().toLowerCase());
+
+    const idx=(name)=>headers.indexOf(name);
+    const get=(cells,name)=>{
+      const i=idx(name);
+      return i<0?"":(cells[i]||"").trim();
+    };
+
+    let flagged=[];
+    let total=0;
+    let high=0;
+    let risk=0;
+
+    lines.forEach(line=>{
+      const cells=line.split(",");
+      if(cells.length<headers.length)return;
+
+      total++;
+      const id=get(cells,"transaction_id")||"Unknown";
+      const category=get(cells,"category")||"Other";
+      const amount=Number(get(cells,"amount").replace(/[$,]/g,""))||0;
+      const discount=Number(get(cells,"discount_percent"))||0;
+
+      let level="";
+      let reason="";
+
+      if(discount>=35){
+        level="HIGH";
+        reason="Discount above 35%";
+      }else if(discount>=20){
+        level="MEDIUM";
+        reason="Discount above 20%";
+      }else if(category.toLowerCase()==="refund" && amount>=1000){
+        level="MEDIUM";
+        reason="Large refund review";
+      }
+
+      if(level){
+        flagged.push({id,category,amount,level,reason});
+        risk+=amount;
+        if(level==="HIGH")high++;
+      }
+    });
+
+    document.getElementById("total").textContent=total.toLocaleString();
+    document.getElementById("anomalies").textContent=flagged.length;
+    document.getElementById("high").textContent=high;
+    document.getElementById("risk").textContent=
+      "$"+risk.toLocaleString();
+
+    document.getElementById("results").innerHTML=
+      flagged.map(x=>`
+      <tr>
+        <td>${safe(x.id)}</td>
+        <td>${safe(x.category)}</td>
+        <td>$${x.amount.toLocaleString()}</td>
+        <td class="${x.level==="HIGH"?"red":"yellow"}">${x.level}</td>
+        <td>${safe(x.reason)}</td>
+      </tr>`).join("")||
+      "<tr><td colspan='5'>No flagged transactions.</td></tr>";
+  };
+
+  reader.readAsText(file);
+}
+
+function safe(value){
+  return String(value).replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#39;"
+  }[c]));
+}
+</script>
+</body>
+</html>
